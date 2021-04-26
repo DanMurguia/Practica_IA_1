@@ -1,7 +1,7 @@
 import numpy as np
 
 def crear_matriz(probabilidades, forma): #Crea una matriz de numeros aleatorios
-    matriz = np.random.choice(5,forma,probabilidades)
+    matriz = np.random.choice(7,forma,probabilidades)
     return matriz
 
 def guardar_matriz(fname,matriz): #guarda una matriz :V
@@ -27,7 +27,7 @@ def generar_probabilidades(n_probabilidades): ##genera las probabilidades de
     return probabilidades
 
 if __name__ == '__main__':
-    probabilidades = generar_probabilidades(5) 
+    probabilidades = generar_probabilidades(7) 
     fname = "matriz_aleatoria.txt"
     forma = (15,15)
     matriz = crear_matriz(probabilidades,forma)

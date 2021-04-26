@@ -7,13 +7,10 @@ import time
 BLACK = (0, 0, 0)
 water = (0, 0, 255)
 forest = (6, 71, 12)
-redP = (230, 0, 20)
-pinkP = (255, 77, 195)
 mountains = (160, 160, 160)
-aquaP = (90, 139, 185)
 sand = (194, 178, 128)
-purpleP = (102, 0, 102)
-whiteP = (255, 255, 255)
+pantano = (102, 0, 102)
+nieve = (255, 255, 255)
 land = (181, 101, 29)
 
 # tamañoCasilla es el tamaño que tendrá cada lado de las casillas
@@ -43,7 +40,8 @@ def dibujar(agente,modo):
 
     # Fuente es un estilo de imagen inicializada dentro de pygame. Pygame solo muestra imagenes o dibujos, no texto.
     Fuente = pygame.font.SysFont('fontname', 16)
-    matriz = gm.cargar_matriz('laberinto.txt')
+    matriz = gm.cargar_matriz('matriz_aleatoria.txt')
+
     fil = matriz.shape[0]
     col = matriz.shape[1]
     paramsd = {}             #Se crea el diccionario de parametros
@@ -93,7 +91,8 @@ def dibujar(agente,modo):
                         elif linea[columna] == 5:
                                 pygame.draw.rect(pantalla, pantano, [j, i, 38, 38], 0)
                         elif linea[columna] == 6:
-                                pygame.draw.rect(pantalla, nueve, [j, i, 38, 38], 0)
+                                pygame.draw.rect(pantalla, nieve, [j, i, 38, 38], 0)
+
                     else:
                         pygame.draw.rect(pantalla, BLACK, [j, i, 38, 38], 0)
 
@@ -127,9 +126,10 @@ def dibujar(agente,modo):
 
         pygame.display.flip()
 
-        if modo == 0:
+        if modo == 1:
             ag.step(paramsd, matriz)
-        elif modo == 1:
+        elif modo == 2:
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     print("GameOver!")
