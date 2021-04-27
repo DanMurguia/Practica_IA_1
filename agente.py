@@ -124,26 +124,29 @@ def step(paramsd, matriz, ente2):
                             paramsd[(i, j)]['X']=False
                             paramsd[(i-1, j)]['X']=True
 
-
-                            return paramsd
+                            costo=ente2[matriz[i-1][j]]
+                            return costo
 
                         if j -1 >= 0 and ente2[matriz[i][j-1]] and not paramsd[(i, j-1)]['V']:
                             paramsd[(i, j)]['X'] = False
                             paramsd[(i, j - 1)]['X'] = True
 
-                            return paramsd
+                            costo=ente2[matriz[i][j-1]]
+                            return costo
 
                         if i+1 < fil and ente2[matriz[i+1][j]] and not paramsd[(i+1, j)]['V'] :
                             paramsd[(i, j)]['X'] = False
                             paramsd[(i +1, j)]['X'] = True
 
-                            return paramsd
+                            costo=ente2[matriz[i+1][j]]
+                            return costo
 
                         if j+1 < col and ente2[matriz[i][j+1]] and not paramsd[(i, j+1)]['V']:
                             paramsd[(i, j)]['X'] = False
                             paramsd[(i, j+1)]['X'] = True
 
-                            return paramsd
+                            costo=ente2[matriz[i][j+1]]
+                            return costo
 
 def step_down(paramsd, matriz, ente2):
 
@@ -164,7 +167,9 @@ def step_down(paramsd, matriz, ente2):
                         if i+1 < fil and ente2[matriz[i+1][j]]:
                             paramsd[(i, j)]['X'] = False
                             paramsd[(i +1, j)]['X'] = True
-                            return paramsd
+
+                            costo = ente2[matriz[i+1][j]]
+                            return costo
 
 def step_up(paramsd, matriz, ente2):
 
@@ -186,8 +191,8 @@ def step_up(paramsd, matriz, ente2):
                             paramsd[(i, j)]['X']=False
                             paramsd[(i-1, j)]['X']=True
 
-
-                            return paramsd
+                            costo = ente2[matriz[i-1][j]]
+                            return costo
 
 def step_right(paramsd, matriz, ente2):
 
@@ -209,7 +214,8 @@ def step_right(paramsd, matriz, ente2):
                             paramsd[(i, j)]['X'] = False
                             paramsd[(i, j+1)]['X'] = True
 
-                            return paramsd
+                            costo = ente2[matriz[i][j+1]]
+                            return costo
 
 def step_left(paramsd, matriz, ente2):
 
@@ -231,4 +237,5 @@ def step_left(paramsd, matriz, ente2):
                             paramsd[(i, j)]['X'] = False
                             paramsd[(i, j - 1)]['X'] = True
 
-                            return paramsd
+                            costo = ente2[matriz[i][j-1]]
+                            return costo

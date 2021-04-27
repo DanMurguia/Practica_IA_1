@@ -12,8 +12,8 @@ pinkP = (255, 77, 195)
 mountains = (160, 160, 160)
 aquaP = (90, 139, 185)
 sand = (194, 178, 128)
-purpleP = (102, 0, 102)
-whiteP = (255, 255, 255)
+pantano = (102, 0, 102)
+nieve = (255, 255, 255)
 land = (181, 101, 29)
 
 # tamañoCasilla es el tamaño que tendrá cada lado de las casillas
@@ -22,10 +22,12 @@ tamañoCasilla = 40
 # tamañoCuadricula es el numero de casillas que tendrá la cuadricula por lado
 tamañoCuadricula = 15
 columna = 0
-def dibujar(agente,modo):
+def dibujar(agente,modo,x,y):
     print("Agente"+str(agente))
     print("Modo"+str(modo))
     pygame.init()
+    costo=0
+    costoAcumulado=0
 
     # tamañoPantalla es el una tupla con los valores del tamaño de la pantalla
     tamañoPantalla = (tamañoCasilla*tamañoCuadricula,
@@ -55,7 +57,7 @@ def dibujar(agente,modo):
         for y in range(0, col):
             paramsd[(x, y)] = {'V': False, 'O': False, 'I': False, 'X': False, 'S':False, 'F':False, 'k':False}
 
-    paramsd[(10, 0)] = {'V': False, 'O': False, 'I': True, 'X': False, 'S':False,'F':False}
+    paramsd[(x, y)] = {'V': False, 'O': False, 'I': True, 'X': False, 'S':False,'F':False}
     paramsd[(6,8)] = {'V': False, 'O': False, 'I': False, 'X': False, 'S':False,'F':True}
 
     ente=ag.definirAgente(agente)
@@ -97,7 +99,15 @@ def dibujar(agente,modo):
                         elif linea[columna] == 5:
                                 pygame.draw.rect(pantalla, pantano, [j, i, 38, 38], 0)
                         elif linea[columna] == 6:
-                                pygame.draw.rect(pantalla, nueve, [j, i, 38, 38], 0)
+                                pygame.draw.rect(pantalla, nieve, [j, i, 38, 38], 0)
+                        elif linea[columna] == 7:
+                                pygame.draw.rect(pantalla, aquaP, [j, i, 38, 38], 0)
+                        elif linea[columna] == 8:
+                                pygame.draw.rect(pantalla, redP, [j, i, 38, 38], 0)
+                        elif linea[columna] == 9:
+                                pygame.draw.rect(pantalla, pinkP, [j, i, 38, 38], 0)
+
+
                     else:
                         pygame.draw.rect(pantalla, BLACK, [j, i, 38, 38], 0)
 
@@ -132,7 +142,9 @@ def dibujar(agente,modo):
         pygame.display.flip()
 
         if modo == 2:
-            ag.step(paramsd, matriz, ente)
+            costo=ag.step(paramsd, matriz, ente)
+            if(costo):
+                costoAcumulado=costo+costoAcumulado
         elif modo == 1:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -140,12 +152,23 @@ def dibujar(agente,modo):
                     gameOver = True
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_w:
-                        ag.step_up(paramsd, matriz, ente)
+                        costo=ag.step_up(paramsd, matriz, ente)
+                        if(costo):
+                            costoAcumulado=costo+costoAcumulado
                     elif event.key == pygame.K_a:
-                        ag.step_left(paramsd, matriz, ente)
+                        costo=ag.step_left(paramsd, matriz, ente)
+                        if(costo):
+                            costoAcumulado=costo+costoAcumulado
                     elif event.key == pygame.K_s:
-                        ag.step_down(paramsd, matriz, ente)
+                        costo=ag.step_down(paramsd, matriz, ente)
+                        if(costo):
+                            costoAcumulado=costo+costoAcumulado
                     elif event.key == pygame.K_d:
-                        ag.step_right(paramsd, matriz, ente)
+                        costo=ag.step_right(paramsd, matriz, ente)
+                        if(costo):
+                            costoAcumulado=costo+costoAcumulado
+        
+        
         reloj.tick(5)
     pygame.quit()
+    print("Costo acumulado: "+str(costoAcumulado))
