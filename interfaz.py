@@ -36,12 +36,12 @@ class MainWindow(tk.Frame):
                            background='#6B0002',foreground = '#968118',variable=self.var_ente)
         rad0.grid(row=2, column=0)
         
-        rad1 = Radiobutton(self,text='Mono', value=2,
+        rad1 = Radiobutton(self,text='Mono', value=3,
                            font=('Arial',14,'bold italic'), 
                            background='#6B0002',foreground = '#968118',variable=self.var_ente)
         rad1.grid(row=2, column=1) 
         
-        rad2 = Radiobutton(self,text='Pulpo', value=3,
+        rad2 = Radiobutton(self,text='Pulpo', value=2,
                            font=('Arial',14,'bold italic'),
                            background='#6B0002',foreground = '#968118',variable=self.var_ente)
         rad2.grid(row=2, column=2)
@@ -58,12 +58,12 @@ class MainWindow(tk.Frame):
         lblmod.grid(row=4,column=0,columnspan=2 ,pady=15)
         
         
-        rad0 = Radiobutton(self,text='Manual', value=2,
+        rad0 = Radiobutton(self,text='Manual', value=1,
                            font=('Arial',14,'bold italic'), 
                            background='#6B0002',foreground = '#968118',variable=self.var_modo)
         rad0.grid(row=5, column=0)
         
-        rad1 = Radiobutton(self,text='Automatico', value=1,
+        rad1 = Radiobutton(self,text='Automatico', value=2,
                            font=('Arial',14,'bold italic'), 
                            background='#6B0002',foreground = '#968118',variable=self.var_modo)
         rad1.grid(row=5, column=1)
@@ -90,4 +90,3 @@ if __name__ == "__main__":
     root = tk.Tk()
     MainWindow(root).pack(side="top", fill="both", expand=True)
     root.mainloop()
-

@@ -7,10 +7,13 @@ import time
 BLACK = (0, 0, 0)
 water = (0, 0, 255)
 forest = (6, 71, 12)
+redP = (230, 0, 20)
+pinkP = (255, 77, 195)
 mountains = (160, 160, 160)
+aquaP = (90, 139, 185)
 sand = (194, 178, 128)
-pantano = (102, 0, 102)
-nieve = (255, 255, 255)
+purpleP = (102, 0, 102)
+whiteP = (255, 255, 255)
 land = (181, 101, 29)
 
 # tamañoCasilla es el tamaño que tendrá cada lado de las casillas
@@ -20,6 +23,8 @@ tamañoCasilla = 40
 tamañoCuadricula = 15
 columna = 0
 def dibujar(agente,modo):
+    print("Agente"+str(agente))
+    print("Modo"+str(modo))
     pygame.init()
 
     # tamañoPantalla es el una tupla con los valores del tamaño de la pantalla
@@ -40,8 +45,7 @@ def dibujar(agente,modo):
 
     # Fuente es un estilo de imagen inicializada dentro de pygame. Pygame solo muestra imagenes o dibujos, no texto.
     Fuente = pygame.font.SysFont('fontname', 16)
-    matriz = gm.cargar_matriz('matriz_aleatoria.txt')
-
+    matriz = gm.cargar_matriz('laberinto.txt')
     fil = matriz.shape[0]
     col = matriz.shape[1]
     paramsd = {}             #Se crea el diccionario de parametros
@@ -54,7 +58,9 @@ def dibujar(agente,modo):
     paramsd[(10, 0)] = {'V': False, 'O': False, 'I': True, 'X': False, 'S':False,'F':False}
     paramsd[(6,8)] = {'V': False, 'O': False, 'I': False, 'X': False, 'S':False,'F':True}
 
-    ag.spawn(paramsd, matriz)
+    ente=ag.definirAgente(agente)
+
+    ag.spawn(paramsd, matriz, ente)
 
     while not gameOver:
             
@@ -63,7 +69,7 @@ def dibujar(agente,modo):
         T = 0
         #fila es la fila que se va a recorrer de la matriz :V 
         fila = 0
-        ag.sense(paramsd,matriz)
+        ag.sense(paramsd,matriz, ente)
         # este for recorre el ancho de la pantalla
         for i in range(1, tamañoPantalla[0], 40):
             linea = matriz[fila] #se obtiene una fila de la matriz
@@ -91,8 +97,7 @@ def dibujar(agente,modo):
                         elif linea[columna] == 5:
                                 pygame.draw.rect(pantalla, pantano, [j, i, 38, 38], 0)
                         elif linea[columna] == 6:
-                                pygame.draw.rect(pantalla, nieve, [j, i, 38, 38], 0)
-
+                                pygame.draw.rect(pantalla, nueve, [j, i, 38, 38], 0)
                     else:
                         pygame.draw.rect(pantalla, BLACK, [j, i, 38, 38], 0)
 
@@ -126,22 +131,21 @@ def dibujar(agente,modo):
 
         pygame.display.flip()
 
-        if modo == 1:
-            ag.step(paramsd, matriz)
-        elif modo == 2:
-
+        if modo == 2:
+            ag.step(paramsd, matriz, ente)
+        elif modo == 1:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     print("GameOver!")
                     gameOver = True
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_w:
-                        ag.step_up(paramsd, matriz)
+                        ag.step_up(paramsd, matriz, ente)
                     elif event.key == pygame.K_a:
-                        ag.step_left(paramsd, matriz)
+                        ag.step_left(paramsd, matriz, ente)
                     elif event.key == pygame.K_s:
-                        ag.step_down(paramsd, matriz)
+                        ag.step_down(paramsd, matriz, ente)
                     elif event.key == pygame.K_d:
-                        ag.step_right(paramsd, matriz)
+                        ag.step_right(paramsd, matriz, ente)
         reloj.tick(5)
     pygame.quit()
