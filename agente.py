@@ -86,7 +86,7 @@ def sense(paramsd, matriz, ente2):
                     if (ente2[matriz[i][j+1]]and not paramsd[(i, j+1)]['V']):
                         aux = aux+1
 
-                if aux>1:
+                if aux>1 '''and not paramsd[(i, j )]['F']''':
                     paramsd[(i, j )]['O'] = True
                 else:
                     paramsd[(i, j )]['k'] = True
@@ -116,7 +116,7 @@ def step(paramsd, matriz, ente2):
                                         paramsd[(auxi, auxj)]['X'] = True
                                         paramsd[(i, j)]['X'] = False
                                         paramsd[(auxi, auxj)]['V'] = False
-                                        return paramsd
+                                        return False
 
                         paramsd[(i, j)]['V'] = True
 
@@ -238,4 +238,5 @@ def step_left(paramsd, matriz, ente2):
                             paramsd[(i, j - 1)]['X'] = True
 
                             costo = ente2[matriz[i][j-1]]
+
                             return costo
