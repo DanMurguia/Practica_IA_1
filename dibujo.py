@@ -22,7 +22,7 @@ tamañoCasilla = 40
 # tamañoCuadricula es el numero de casillas que tendrá la cuadricula por lado
 tamañoCuadricula = 15
 columna = 0
-def dibujar(agente,modo,x,y):
+def dibujar(agente,modo,xx,yy):
     print("Agente"+str(agente))
     print("Modo"+str(modo))
     pygame.init()
@@ -47,7 +47,7 @@ def dibujar(agente,modo,x,y):
 
     # Fuente es un estilo de imagen inicializada dentro de pygame. Pygame solo muestra imagenes o dibujos, no texto.
     Fuente = pygame.font.SysFont('fontname', 16)
-    matriz = gm.cargar_matriz('laberinto.txt')
+    matriz = gm.cargar_matriz('matriz_aleatoria.txt')
     fil = matriz.shape[0]
     col = matriz.shape[1]
     paramsd = {}             #Se crea el diccionario de parametros
@@ -57,7 +57,7 @@ def dibujar(agente,modo,x,y):
         for y in range(0, col):
             paramsd[(x, y)] = {'V': False, 'O': False, 'I': False, 'X': False, 'S':False, 'F':False, 'k':False}
 
-    paramsd[(x, y)] = {'V': False, 'O': False, 'I': True, 'X': False, 'S':False,'F':False}
+    paramsd[(xx, yy)] = {'V': False, 'O': False, 'I': True, 'X': False, 'S':False,'F':False}
     paramsd[(6,8)] = {'V': False, 'O': False, 'I': False, 'X': False, 'S':False,'F':True}
 
     ente=ag.definirAgente(agente)
